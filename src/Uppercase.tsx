@@ -1,21 +1,24 @@
-// Uppercase.tsx
 import React from 'react';
-import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import { textAtom } from './Input';
+import { counter } from './Counter';
 
 const uppercaseAtom = atom(
     (get) => get(textAtom).toUpperCase()
 )
-export const countAtom = atom(0)
+
+const counterAtom = atom(
+    (get) => get(counter).valueOf()
+)
 
 const Uppercase: React.FC = () => {
-    const setCount = useSetAtom(countAtom)
-    const count = useAtomValue(countAtom)
+    const [uppercase] = useAtom(uppercaseAtom);
+    const [counter] = useAtom(counterAtom);
 
     return (
         <>
-            <div>count: {count}</div>
-            <button onClick={() => setCount(count + 1)}>+1</button>
+            <div>Uppercase: {uppercase}</div>
+            <div>Uppercase: {counter}</div>
         </>
     )
 };
