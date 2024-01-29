@@ -1,27 +1,31 @@
-import { atom, useAtom } from 'jotai'
-import { atomWithDefault, useResetAtom, RESET } from 'jotai/utils'
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+import { useEffect } from 'react';
 
-const count1Atom = atom(1)
-const count2Atom = atomWithDefault((get) => get(count1Atom) * 2)
+const themeAtom = atomWithStorage('dark', false);
 
-const App = () => {
-  const [count1, setCount1] = useAtom(count1Atom)
-  const [count2, setCount2] = useAtom(count2Atom)
-  const resetCount2 = useResetAtom(count2Atom)
-  // const resetCount1 = useResetAtom(count1Atom)
+export default function App() {
+  const [appTheme, setAppTheme] = useAtom(themeAtom);
+
+  const handleClick = () => {
+    setAppTheme(!appTheme);
+    // Set expiration time to 10 seconds (10000 milliseconds)
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Remove 'dark' key from localStorage after 10 seconds
+      localStorage.removeItem('dark');
+    }, 5000);
+
+    // Clear the timer when the component unmounts or when the theme changes
+    return () => clearTimeout(timer);
+  }, [appTheme]);
 
   return (
-    <>
-      <div>
-        count1: {count1}, count2: {count2}
-      </div>
-      <button onClick={() => setCount1((c) => c + 1)}>increment count1</button>
-      <button onClick={() => setCount2((c) => c + 1)}>increment count2</button>
-      <button onClick={() => resetCount2()}>Reset with useResetAtom</button>
-      {/* <button onClick={() => resetCount1()}>Reset with useResetAtom</button> */}
-      <button onClick={() => setCount2(RESET)}>Reset with RESET const</button>
-    </>
-  )
+    <div style={appTheme ? { backgroundColor: 'grey' } : { backgroundColor: 'black' }} className={appTheme ? 'dark' : 'light'}>
+      <h1>This is a theme switcher</h1>
+      <button onClick={handleClick}>{appTheme ? 'DARK' : 'LIGHT'}</button>
+    </div>
+  );
 }
-
-export default App;
