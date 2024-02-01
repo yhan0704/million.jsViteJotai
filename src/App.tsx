@@ -1,31 +1,55 @@
-import { useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
-import { useEffect } from 'react';
+import { atom, useAtom } from 'jotai';
+import { useState } from 'react';
 
-const themeAtom = atomWithStorage('dark', false);
+const textAtom = atom('readonly atoms')
+export const uppercase = atom((get) => get(textAtom))
 
-export default function App() {
-  const [appTheme, setAppTheme] = useAtom(themeAtom);
+export default function Page() {
+  const [lowecaseText, setLowercaseText] = useAtom(textAtom);
+  const [uppercaseText] = useAtom(uppercase);
 
-  const handleClick = () => {
-    setAppTheme(!appTheme);
-    // Set expiration time to 10 seconds (10000 milliseconds)
-  };
+  console.log('h3', lowecaseText)
+  console.log('h4', uppercaseText)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // Remove 'dark' key from localStorage after 10 seconds
-      localStorage.removeItem('dark');
-    }, 5000);
+  const handleClick = (e: any) => {
+    const inputText = e.target.value;
 
-    // Clear the timer when the component unmounts or when the theme changes
-    return () => clearTimeout(timer);
-  }, [appTheme]);
+    // 정규식을 사용하여 소문자, 숫자, 대문자로 시작하는 경우를 막음
+    if (/^[a-z]+$/.test(inputText)) {
+      setLowercaseText(inputText);
+    }
+  }
 
   return (
-    <div style={appTheme ? { backgroundColor: 'grey' } : { backgroundColor: 'black' }} className={appTheme ? 'dark' : 'light'}>
-      <h1>This is a theme switcher</h1>
-      <button onClick={handleClick}>{appTheme ? 'DARK' : 'LIGHT'}</button>
+    <div className="app">
+      <input value={lowecaseText} onChange={handleClick} />
+      <h1>{uppercaseText}</h1>
+      <Page1 />
     </div>
-  );
+  )
+}
+
+function Page1() {
+  const [lowecaseText, setLowercaseText] = useState('');
+  const [uppercaseText] = useAtom(uppercase);
+
+  console.log('h1', uppercaseText)
+  console.log('h2', lowecaseText)
+
+  const handleClick = (e: any) => {
+    const inputText = e.target.value;
+
+    // 정규식을 사용하여 소문자, 숫자, 대문자로 시작하는 경우를 막음
+    if (/^[a-z]+$/.test(inputText)) {
+      setLowercaseText(inputText);
+    }
+  }
+
+  return (
+    <div className="app">
+      <input value={lowecaseText} onChange={handleClick} />
+      <h1>{uppercaseText}</h1>
+      <h1>{lowecaseText}</h1>
+    </div>
+  )
 }
