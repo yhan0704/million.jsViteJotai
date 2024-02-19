@@ -1,5 +1,6 @@
 import { atom, useAtom } from 'jotai';
 import { useState } from 'react';
+import { ImmerTest } from './ImmerTest';
 
 const textAtom = atom('readonly atoms')
 export const uppercase = atom((get) => get(textAtom))
@@ -24,7 +25,8 @@ export default function Page() {
     <div className="app">
       <input value={lowecaseText} onChange={handleClick} />
       <h1>{uppercaseText}</h1>
-      <Page1 />
+      {/* <Page1 /> */}
+      <ImmerTest />
     </div>
   )
 }
@@ -49,7 +51,7 @@ function Page1() {
     <div className="app">
       <input value={lowecaseText} onChange={handleClick} />
       <h1>{uppercaseText}</h1>
-      <h1>{lowecaseText}</h1>
+      <h1>{lowecaseText.toUpperCase()}</h1>
     </div>
   )
 }
