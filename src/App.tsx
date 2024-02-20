@@ -1,6 +1,7 @@
 import { atom, useAtom } from 'jotai';
 import { useState } from 'react';
 import { ImmerTest } from './ImmerTest';
+import ShoppingCart from './ShoppingCart';
 
 const textAtom = atom('readonly atoms')
 export const uppercase = atom((get) => get(textAtom))
@@ -26,7 +27,7 @@ export default function Page() {
       <input value={lowecaseText} onChange={handleClick} />
       <h1>{uppercaseText}</h1>
       {/* <Page1 /> */}
-      <ImmerTest />
+      <ShoppingCart />
     </div>
   )
 }
