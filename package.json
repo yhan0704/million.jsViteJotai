@@ -19,6 +19,7 @@
     "antd": "^5.12.8",
     "jotai": "^2.6.1",
     "lodash": "^4.17.21",
+    "match-sorter": "^6.3.4",
     "million": "^2.6.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
