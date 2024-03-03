@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+// import App from './App.tsx'
 import './index.css'
 import ExLodash from './ExLodash.tsx'
+// import ControllableStates from './ControllableStates.tsx'
+// import FuzzySearch from './FuzzySearch.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

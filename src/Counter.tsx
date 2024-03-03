@@ -1,8 +1,7 @@
-import React from 'react';
 import { atom, useAtom } from 'jotai';
 
-export const counter = atom(0)
-const Counter: React.FC = () => {
+const counter = atom(0)
+const Counter = () => {
     const [count, setCount] = useAtom(counter)
 
     const increaseCount = () => setCount(count + 1)
