@@ -1,9 +1,7 @@
 import { useState } from "react";
 import debounce from "lodash/debounce";
-interface FilmOption {
-  title: string;
-  year: number;
-}
+import { FilmOption } from "./ExLodash";
+
 const useDebouncedFilter = (data:FilmOption[], delay = 500) => {
   const [filteredData, setFilteredData] = useState(data);
 
