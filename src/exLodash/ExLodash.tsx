@@ -11,7 +11,7 @@ export default function ExLodash() {
   return (
     <Autocomplete
       options={filteredData}
-      getOptionLabel={(option:FilmOption) => option.title}
+      getOptionLabel={(option: FilmOption) => option.title}
       filterOptions={(options, state) => {
         filterData(state.inputValue);
         return options;
