@@ -45,7 +45,7 @@ const useDebouncedFilter = (data: FilmOption[], delay = 500) => {
         .toLowerCase()
         .replace(/-/g, " ")
         .split(" ");
-      return words.every((word: string) =>
+      return words.some((word: string) =>
         option.title.toLowerCase().includes(word)
       );
     });
